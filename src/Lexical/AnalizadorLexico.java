@@ -18,6 +18,9 @@ public class AnalizadorLexico {
         currentChar = ' ';
     }
 
+    public char getCurrentChar(){
+        return currentChar;
+    }
     private void initializeKeywords() {
         keywords = new KeyW_Table();
     }
@@ -29,12 +32,46 @@ public class AnalizadorLexico {
         if (tokenName == "intLiteral" && tokenLexeme.length() > 9) {
             throw new LexicalException(tokenLexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(), "No se permiten literales enteros de mas de 9 dígitos.", fileManager.getContentLine(fileManager.getLineNumber()));
         }
+        if (tokenName == "floatLiteral"){
+            checkFloat(tokenToReturn);
+        }
         if (keywords.exist(tokenLexeme)) {
-            return new Token("keyword_" + tokenLexeme, tokenLexeme, fileManager.getLineNumber());
-        } else if (tokenName == "idClass" || tokenName == "idMetVar" || tokenName == "strLiteral" || tokenName == "intLiteral" || tokenName == "floatLiteral" || tokenName == "charLiteral" || tokenName == "EOF") {
+            return new Token(tokenLexeme, tokenLexeme, fileManager.getLineNumber());
+        } else if (tokenName == "idClase" || tokenName == "idMetVar" || tokenName == "stringLiteral" || tokenName == "intLiteral" || tokenName == "floatLiteral" || tokenName == "charLiteral" || tokenName == "EOF") {
             return tokenToReturn;
-        } else return new Token(tokenName + "_" + tokenLexeme, tokenLexeme, fileManager.getLineNumber());
+        } else return new Token(tokenLexeme, tokenLexeme, fileManager.getLineNumber()); //TODO esto estaba asi: tokenName + "_" + tokenLexeme
     }
+
+    private void checkFloat(Token tokenToReturn) throws IOException, LexicalException {
+        String tokenLexeme = tokenToReturn.getLexeme();
+        boolean isZero = false;
+
+        if (tokenLexeme.contains("e")){
+            String[] splitted = tokenLexeme.split("e");
+            if (Double.parseDouble(splitted[0]) == 0){
+                isZero = true;
+            }
+        }
+        if (tokenLexeme.contains("E")){
+            String[] splitted = tokenLexeme.split("E");
+            if (Double.parseDouble(splitted[0]) == 0){
+                isZero = true;
+            }
+        }
+
+        try {
+            double num = Double.parseDouble(tokenLexeme);
+            if (!isZero && num < Float.MIN_VALUE){
+                throw new LexicalException(tokenLexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(),"El literal es mas pequeño que el menor float permitido.", fileManager.getContentLine(fileManager.getLineNumber()));
+            }else if (num > Float.MAX_VALUE){
+                throw new LexicalException(tokenLexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(),"El literal es mas grande que el mayor float permitido.", fileManager.getContentLine(fileManager.getLineNumber()));
+            }
+        }catch (NumberFormatException exception){
+            throw new LexicalException(tokenLexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(),"El literal esta fuera de los rangos permitidos por los floats.", fileManager.getContentLine(fileManager.getLineNumber()));
+        }
+
+    }
+
     private void updateLexeme() {
         lexeme += currentChar;
     }
@@ -53,7 +90,7 @@ public class AnalizadorLexico {
 
     private Token e0() throws LexicalException, IOException {
         lexeme = "";
-        while (currentChar == ' ' || currentChar == '\n' || currentChar == '\r') {
+        while (currentChar == ' ' || currentChar == '\n' || currentChar == '\r' || currentChar == '\t') {
             updateChar();
         }
         if (Character.isDigit(currentChar)) {
@@ -142,8 +179,6 @@ public class AnalizadorLexico {
             updateChar();
             return eFloat1();
         } else {
-            updateLexeme();
-            updateChar();
             return ePuntuacion();
         }
     }
@@ -181,7 +216,7 @@ public class AnalizadorLexico {
         if (fileManager.isEOF(currentChar)) {
             throw new LexicalException(lexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(), "Se esperaba \" o un caracter pero se encontro EOF.", fileManager.getContentLine(fileManager.getLineNumber()));
 
-        } else if (currentChar == '\n') {
+        } else if (currentChar == '\n' || currentChar == '\r') {
             throw new LexicalException(lexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(), "Se esperaba \" o un caracter pero se encontro un salto de linea.", fileManager.getContentLine(fileManager.getLineNumber()));
 
         } else {
@@ -195,7 +230,7 @@ public class AnalizadorLexico {
         if (fileManager.isEOF(currentChar)) {
             throw new LexicalException(lexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(), "Se esperaba un caractér pero se encontro EOF.", fileManager.getContentLine(fileManager.getLineNumber()));
 
-        } else if (currentChar == '\n') {
+        } else if (currentChar == '\n' || currentChar== '\r') {
             updateChar();
             throw new LexicalException(lexeme, fileManager.getLineNumber(), fileManager.getCurrentColumn(), "Se esperaba un caractér pero se encontro un salto de línea.", fileManager.getContentLine(fileManager.getLineNumber()));
 
@@ -352,13 +387,14 @@ public class AnalizadorLexico {
             return eIDClass();
 
         } else {
-            return new Token("idClass", lexeme, fileManager.getLineNumber());
+            return new Token("idClase", lexeme, fileManager.getLineNumber());
 
         }
     }
 
     //ePuntuacion puntuadores, (){};,:
     private Token ePuntuacion() {
+
         return new Token("punctuator", lexeme, fileManager.getLineNumber());
     }
 
