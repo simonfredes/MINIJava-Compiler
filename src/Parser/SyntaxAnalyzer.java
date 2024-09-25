@@ -27,7 +27,7 @@ public class SyntaxAnalyzer {
             System.out.println("Se hizo match con: " + oldTokenName + " | Token nuevo: " + tokenActual.getName());
         } else {
             System.out.println("Error en match");
-            throw new SyntaxException(analizdorLexico.getNextToken().getRow(), nombreToken, tokenActual.getLexeme());
+            throw new SyntaxException(tokenActual.getRow(), nombreToken, tokenActual.getLexeme());
         }
 
 
@@ -132,7 +132,7 @@ public class SyntaxAnalyzer {
 
     private void sentencia() throws LexicalException, SyntaxException, IOException {
         System.out.println("Entre a sentencia()");
-        if (primerosAsignacionYLLamada(tokenActual.getName())) { //@TODO ver si en verdad da lo mismo llamar a asignacion o llamada (derivan exactamente lo mismo)
+        if (primerosAsignacionYLLamada(tokenActual.getName())) { 
             expresion();
             match(";");
         } else if (tokenActual.getName().equals("var")) {

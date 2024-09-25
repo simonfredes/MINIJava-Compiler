@@ -39,7 +39,7 @@ public class AnalizadorLexico {
             return new Token(tokenLexeme, tokenLexeme, fileManager.getLineNumber());
         } else if (tokenName == "idClase" || tokenName == "idMetVar" || tokenName == "stringLiteral" || tokenName == "intLiteral" || tokenName == "floatLiteral" || tokenName == "charLiteral" || tokenName == "EOF") {
             return tokenToReturn;
-        } else return new Token(tokenLexeme, tokenLexeme, fileManager.getLineNumber()); //TODO esto estaba asi: tokenName + "_" + tokenLexeme
+        } else return new Token(tokenLexeme, tokenLexeme, fileManager.getLineNumber());
     }
 
     private void checkFloat(Token tokenToReturn) throws IOException, LexicalException {
@@ -185,7 +185,7 @@ public class AnalizadorLexico {
 
     private Token eFinal() {
         updateLexeme();
-        return new Token("EOF", lexeme, fileManager.getLineNumber());
+        return new Token("EOF", "", fileManager.getLineNumber());
     }
 
     private Token eString1() throws LexicalException, IOException {
