@@ -1,0 +1,30 @@
+package Semantic_1.Nodes;
+import Exception.SemanticException;
+import Lexical.Token;
+import Semantic_1.SymbolTable.SymbolTable;
+
+public class NodoAsignacion implements Node{
+
+    private Node ladoIzquierdo;
+    private Node ladoDerecho;
+
+    public NodoAsignacion(Node ladoIzquierdo, Node ladoDerecho) {
+        this.ladoIzquierdo = ladoIzquierdo;
+        this.ladoDerecho = ladoDerecho;
+    }
+
+    @Override
+    public void check(SymbolTable symbolTable) throws SemanticException {
+
+    }
+
+    @Override
+    public Token getType() {
+        return null;
+    }
+
+    @Override
+    public Token getToken() {
+        return null;
+    }
+}

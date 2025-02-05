@@ -1,0 +1,14 @@
+package Semantic_1.Nodes;
+
+import Semantic_1.Nodes.Sentencia.NodoBloque;
+
+public abstract class NodoExpComp extends NodoExpresion{
+    
+    protected NodoBloque parentBlock;
+
+
+    public abstract boolean esAsignable();
+
+
+
+}
