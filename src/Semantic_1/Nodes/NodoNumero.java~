@@ -1,0 +1,32 @@
+package Semantic_1.Nodes;
+import Exception.SemanticException;
+import Lexical.Token;
+import Semantic_1.SymbolTable.SymbolTable;
+
+public class NodoLiteral implements NodoOperando {
+
+    public Token valor;
+
+    public NodoLiteral (Token valor) {
+        this.valor = valor;
+    }
+    @Override
+    public void setParentBlock(NodoBloque nodeBlock) {
+
+    }
+
+    @Override
+    public void check(SymbolTable symbolTable) throws SemanticException {
+
+    }
+
+    @Override
+    public Token getType() {
+        return null;
+    }
+
+    @Override
+    public Token getToken() {
+        return null;
+    }
+}

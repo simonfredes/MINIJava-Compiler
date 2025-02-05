@@ -1,0 +1,15 @@
+package Semantic_1.Type;
+
+import Lexical.Token;
+
+public class PrimitiveType extends Type {
+
+    public PrimitiveType(Token token) {
+        super(token);
+        setIsPrimitive(true);
+    }
+
+    public boolean isPrimitive() {
+        return true;
+    }
+}

@@ -28,6 +28,8 @@ class Main {
                         erroresEncontrados.add(e);
                     }
                 }
+
+
             } catch (IOException e) {
                 System.out.println("Error al abrir o leer el archivo.");
             }

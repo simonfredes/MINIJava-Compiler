@@ -1,0 +1,44 @@
+package Semantic_1.Nodes;
+import Exception.SemanticException;
+import Lexical.Token;
+import Semantic_1.SymbolTable.SymbolTable;
+
+import java.util.ArrayList;
+
+public class NodoVariable implements Node {
+
+    public NodoVariable childChain, parentChain;
+    public boolean isMethod = false;
+    public ArrayList<Node> parameters = new ArrayList<>();
+    public Token name;
+    public NodoBloque parentBlock;
+    private boolean alreadyChecked = false;
+    public Token type;
+
+
+    public NodeVariable(Token name, NodoBloque parentBlock) {
+        this.name = name;
+        this.parentBlock = parentBlock;
+    }
+
+
+    @Override
+    public void setParentBlock(NodoBloque nodeBlock) {
+
+    }
+
+    @Override
+    public void check(SymbolTable symbolTable) throws SemanticException {
+
+    }
+
+    @Override
+    public Token getType() {
+        return null;
+    }
+
+    @Override
+    public Token getToken() {
+        return null;
+    }
+}

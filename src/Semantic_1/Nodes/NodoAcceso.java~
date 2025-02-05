@@ -1,0 +1,32 @@
+package Semantic_1.Nodes;
+import Exception.SemanticException;
+import Lexical.Token;
+import Semantic_1.SymbolTable.SymbolTable;
+
+public class NodoAcceso implements Node{
+
+    public Token tokenAccesso;
+    public NodoAcceso(Token tokenAcceso) {
+        this.tokenAccesso = tokenAcceso;
+    }
+
+    @Override
+    public void setParentBlock(NodoBloque nodeBlock) {
+
+    }
+
+    @Override
+    public void check(SymbolTable symbolTable) throws SemanticException {
+
+    }
+
+    @Override
+    public Token getType() {
+        return null;
+    }
+
+    @Override
+    public Token getToken() {
+        return null;
+    }
+}

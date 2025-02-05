@@ -11,10 +11,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class TesterDeCasosConErrores {
+public class TesterDeCasosConErroresSEM2 {
     
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
-    private static final MainParser init = null;
+    private static final MainSemantic init = null;
     
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -44,7 +44,7 @@ public class TesterDeCasosConErrores {
     
     private String input;
     
-    public TesterDeCasosConErrores(String input){
+    public TesterDeCasosConErroresSEM2(String input){
         this.input = input;
     }
        

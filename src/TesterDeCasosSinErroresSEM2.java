@@ -15,13 +15,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 @RunWith(Parameterized.class)
-public class TesterDeCasosSinErrores {
+public class TesterDeCasosSinErroresSEM2 {
 
     private static final String msgExito = "[SinErrores]";
     private static final String testFilesDirectoryPath = "resources/sinErrores/";
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
-    private static final MainParser init = null;
+    private static final MainSemantic init = null;
    
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -52,7 +52,7 @@ public class TesterDeCasosSinErrores {
     
     private String input;
     
-    public TesterDeCasosSinErrores(String input){
+    public TesterDeCasosSinErroresSEM2(String input){
         this.input = input;
     }
 
@@ -63,6 +63,7 @@ public class TesterDeCasosSinErrores {
         probarExito(input);
     }
 
+     
     void probarExito(String name){
             String path = testFilesDirectoryPath+name;
             String[] args = {path};
@@ -76,4 +77,10 @@ public class TesterDeCasosSinErrores {
             assertThat("Mensaje Incorrecto en: " + path,  outContent.toString(), CoreMatchers.containsString(msgExito));
            
     }
+    
+     
+    
+    
+    
+    
 }

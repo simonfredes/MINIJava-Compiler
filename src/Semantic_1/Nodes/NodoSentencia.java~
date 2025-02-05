@@ -1,0 +1,8 @@
+package Semantic_1.Nodes;
+import Exception.SemanticException;
+import Lexical.Token;
+import Semantic_1.SymbolTable.SymbolTable;
+
+public abstract class NodoSentencia extends Node{
+
+}

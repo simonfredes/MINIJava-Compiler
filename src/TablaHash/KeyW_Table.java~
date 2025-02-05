@@ -22,6 +22,7 @@ public class KeyW_Table {
         keywords.add("return");
         keywords.add("var");
         keywords.add("default");
+
         keywords.add("switch");
         keywords.add("case");
         keywords.add("break");
